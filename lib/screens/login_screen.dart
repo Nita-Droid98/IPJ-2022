@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ipj_project/route_manager.dart';
+import 'package:flutter_ipj_project/widgets/clickable_rich_text.dart';
 
 import '../widgets/password_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  TextEditingController matricNumberController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 60),
                     Text(
                       "Log In",
                       style: Theme.of(context)
@@ -42,24 +48,35 @@ class LoginScreen extends StatelessWidget {
                             fontWeight: FontWeight.w300,
                           ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          fillColor: Colors.white38,
-                          filled: true,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: "Matric Number",
-                          alignLabelWithHint: true,
-                        ),
-                      ),
+                    CustomTextField(
+                      controller: matricNumberController,
+                      hintText: "Matric Number",
                     ),
-                    PasswordField(),
+                    PasswordField(
+                      hintText: "Password",
+                      controller: passwordController,
+                    ),
                     ElevatedButton(
                       child: const Text("Log In"),
-                      onPressed: () {},
+                      //TODO: Add Functionality
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(RouteManager.home);
+                      },
                     ),
+                    TextButton(
+                      //TODO: Add Functionality
+                      onPressed: () {},
+                      child: const Text("Forgot Password?"),
+                    ),
+                    const SizedBox(height: 60),
+                    ClickableRichText(
+                      text: "Don't have an account?",
+                      underlinedText: " Sign Up here",
+                      onPressed: () {
+                        Navigator.of(context)
+                            .popAndPushNamed(RouteManager.createAccountScreen);
+                      },
+                    )
                   ],
                 ),
               ),
@@ -68,5 +85,32 @@ class LoginScreen extends StatelessWidget {
         ],
       ),
     ));
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    Key? key,
+    required this.hintText,
+    required this.controller,
+  }) : super(key: key);
+
+  final String hintText;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          fillColor: Colors.white38,
+          filled: true,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          hintText: hintText,
+          alignLabelWithHint: true,
+        ),
+      ),
+    );
   }
 }

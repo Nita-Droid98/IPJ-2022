@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ipj_project/route_manager.dart';
 
 class WelcomePageScreen extends StatelessWidget {
-  const WelcomePageScreen({Key? key});
+  const WelcomePageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

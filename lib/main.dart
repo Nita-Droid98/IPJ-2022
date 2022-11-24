@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ipj_project/init.dart';
 import 'package:flutter_ipj_project/route_manager.dart';
-import 'package:flutter_ipj_project/screens/welcome_screen.dart';
 
 void main() {
+  InitApp.initializeApp();
   runApp(const MyApp());
 }
 
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Student Attendance App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: RouteManager.home,
+      initialRoute: RouteManager.welcomePageScreen,
       onGenerateRoute: RouteManager.onGenerateRoute,
     );
   }
