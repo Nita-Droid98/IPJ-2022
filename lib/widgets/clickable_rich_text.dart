@@ -19,7 +19,7 @@ class ClickableRichText extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w300,
               ),
           children: [
@@ -27,6 +27,7 @@ class ClickableRichText extends StatelessWidget {
             TextSpan(
               text: underlinedText,
               style: const TextStyle(
+                color: Colors.blue,
                 decoration: TextDecoration.underline,
               ),
             ),

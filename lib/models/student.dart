@@ -1,31 +1,23 @@
-class Student {
-  final String studentName;
-  final String studentSurname;
-  final String email;
+import 'package:ipj_project_2022/models/user.dart';
+
+class Student extends AppUser {
   final String matricNumber;
-  final String studentID;
 
   Student({
-    required this.studentSurname,
-    required this.studentName,
-    required this.email,
+    required uid,
+    required name,
+    required surname,
+    required email,
     required this.matricNumber,
-    required this.studentID,
-  });
+  }) : super(uid: uid, name: name, surname: surname, email: email);
 
-  toJson() => {
-        'studentName': studentName,
-        'studentSurname': studentSurname,
-        'dateCreated': email,
-        'studentID': studentID,
+  @override
+  Map<String, dynamic> toJson() => {
+        "uid": uid,
+        "name": name,
+        "surname": surname,
         "matricNumber": matricNumber,
+        "email": email,
+        "type": "STUDENT",
       };
-
-  factory Student.fromJson(Map<dynamic, dynamic>? map) => Student(
-        studentName: map!["studentstudentNameSurname"],
-        studentSurname: map["studentSurname"],
-        email: map["email"],
-        matricNumber: map["matricNumber"],
-        studentID: map["attendanceID"],
-      );
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ipj_project/route_manager.dart';
+import 'package:ipj_project_2022/screens/main_screen.dart';
+
+import '../route_manager.dart';
 
 class WelcomePageScreen extends StatelessWidget {
   const WelcomePageScreen({super.key});
@@ -8,6 +10,7 @@ class WelcomePageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -51,13 +54,11 @@ class WelcomePageScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    child: const Text("Teacher"),
-                    onPressed: () {},
-                  ),
-                  ElevatedButton(
-                    child: const Text("Student"),
+                    child: const Text("Next"),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(RouteManager.loginScreen);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => MainPage()),
+                      );
                     },
                   ),
                 ],

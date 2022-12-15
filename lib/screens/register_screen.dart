@@ -1,28 +1,24 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ipj_project_2022/constants.dart';
 import 'package:ipj_project_2022/helpers/user_helpers.dart';
 import 'package:ipj_project_2022/providers/user_provider.dart';
-
-import 'package:ipj_project_2022/route_manager.dart';
-import 'package:ipj_project_2022/widgets/clickable_rich_text.dart';
 import 'package:ipj_project_2022/widgets/custom_text_field.dart';
 import 'package:ipj_project_2022/widgets/password_field.dart';
 import 'package:provider/provider.dart';
 
-import '../helpers/show_snackbar.dart';
 import '../widgets/page_top_header.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  TextEditingController matricNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -46,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 const PageTopHeader(
-                  pageText: "Login",
+                  pageText: "Register",
                 ),
                 const SizedBox(
                   height: 30,
@@ -57,6 +53,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
+                          hintText: "Name",
+                          controller: nameController,
+                          prefixIcon: const Icon(Icons.person),
+                        ),
+                        CustomTextField(
+                          hintText: "Surname",
+                          controller: surnameController,
+                          prefixIcon: const Icon(Icons.person_add),
+                        ),
+                        if (!isTeacher)
+                          CustomTextField(
+                            hintText: "Matric Number",
+                            controller: matricNumberController,
+                            prefixIcon: const Icon(Icons.numbers),
+                          ),
+                        CustomTextField(
                           hintText: "Email",
                           controller: emailController,
                           prefixIcon: const Icon(Icons.email),
@@ -64,26 +76,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         PasswordField(
                             controller: passwordController,
                             hintText: "Password"),
-                        TextButton(
-                          child: const Text(
-                            "Forgot Password",
-                            style:
-                                TextStyle(decoration: TextDecoration.underline),
-                          ),
-                          onPressed: () async {
-                            //TODO: ADD Implementation
-                            resetPasswordHelper(
-                                context, emailController.text.trim());
+                        CheckboxListTile(
+                          title: const FittedBox(
+                              child: Text(
+                                  "Are you teacher? Register as a Teacher")),
+                          value: isTeacher,
+                          onChanged: (value) {
+                            setState(
+                              () {
+                                isTeacher = !isTeacher;
+                              },
+                            );
                           },
                         ),
                         CupertinoButton.filled(
-                          child: const Text("Login"),
+                          child: const Text("Register"),
                           onPressed: () async {
                             //TODO: ADD Implementation
-                            loginUserHelper(
+                            createUserHelper(
                               context,
-                              emailController.text,
-                              passwordController.text,
+                              name: nameController.text,
+                              surname: surnameController.text,
+                              matricNumber: matricNumberController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                              isTeacher: isTeacher,
                             );
                           },
                         ),

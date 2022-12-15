@@ -25,6 +25,7 @@ class _PasswordFieldState extends State<PasswordField> {
         obscureText: isHidden,
         controller: widget.controller,
         decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.key),
           fillColor: Colors.white38,
           filled: true,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
